@@ -1,62 +1,34 @@
-0.28 Running hooks in /etc/ca-certificates/update.d...
-70.28 done.
-70.28 Processing triggers for dbus (1.12.20-2ubuntu4.1) ...
-70.86 Traceback (most recent call last):
-70.86   File "/usr/bin/add-apt-repository", line 364, in <module>
-70.86     sys.exit(0 if addaptrepo.main() else 1)
-70.86   File "/usr/bin/add-apt-repository", line 347, in main
-70.87     shortcut = handler(source, **shortcut_params)
-70.87   File "/usr/lib/python3/dist-packages/softwareproperties/shortcuts.py", line 40, in shortcut_handler
-70.87     return handler(shortcut, **kwargs)
-70.87   File "/usr/lib/python3/dist-packages/softwareproperties/ppa.py", line 82, in __init__
-70.87     if self.lpppa.publish_debug_symbols:
-70.87   File "/usr/lib/python3/dist-packages/softwareproperties/ppa.py", line 120, in lpppa
-70.87     self._lpppa = self.lpteam.getPPAByName(name=self.ppaname)
-70.87   File "/usr/lib/python3/dist-packages/softwareproperties/ppa.py", line 107, in lpteam
-70.87     self._lpteam = self.lp.people(self.teamname)
-70.87   File "/usr/lib/python3/dist-packages/softwareproperties/ppa.py", line 98, in lp
-70.87     self._lp = login_func("%s.%s" % (self.__module__, self.__class__.__name__),
-70.87   File "/usr/lib/python3/dist-packages/launchpadlib/launchpad.py", line 494, in login_anonymously
-70.87     return cls(
-70.87   File "/usr/lib/python3/dist-packages/launchpadlib/launchpad.py", line 230, in __init__
-70.87     super(Launchpad, self).__init__(
-70.87   File "/usr/lib/python3/dist-packages/lazr/restfulclient/resource.py", line 472, in __init__
-70.87     self._wadl = self._browser.get_wadl_application(self._root_uri)
-70.87   File "/usr/lib/python3/dist-packages/lazr/restfulclient/_browser.py", line 447, in get_wadl_application
-70.87     response, content = self._request(url, media_type=wadl_type)
-70.87   File "/usr/lib/python3/dist-packages/lazr/restfulclient/_browser.py", line 389, in _request
-70.87     response, content = self._request_and_retry(
-70.87   File "/usr/lib/python3/dist-packages/lazr/restfulclient/_browser.py", line 359, in _request_and_retry
-70.87     response, content = self._connection.request(
-70.87   File "/usr/lib/python3/dist-packages/httplib2/__init__.py", line 1725, in request
-70.87     (response, content) = self._request(
-70.87   File "/usr/lib/python3/dist-packages/launchpadlib/launchpad.py", line 144, in _request
-70.87     response, content = super(LaunchpadOAuthAwareHttp, self)._request(
-70.87   File "/usr/lib/python3/dist-packages/lazr/restfulclient/_browser.py", line 184, in _request
-70.87     return super(RestfulHttp, self)._request(
-70.87   File "/usr/lib/python3/dist-packages/httplib2/__init__.py", line 1441, in _request
-70.87     (response, content) = self._conn_request(conn, request_uri, method, body, headers)
-70.87   File "/usr/lib/python3/dist-packages/httplib2/__init__.py", line 1363, in _conn_request
-70.87     conn.connect()
-70.87   File "/usr/lib/python3/dist-packages/httplib2/__init__.py", line 1155, in connect
-70.87     self.sock = self._context.wrap_socket(sock, server_hostname=self.host)
-70.87   File "/usr/lib/python3.10/ssl.py", line 513, in wrap_socket
-70.87     return self.sslsocket_class._create(
-70.87   File "/usr/lib/python3.10/ssl.py", line 1100, in _create
-70.87     self.do_handshake()
-70.87   File "/usr/lib/python3.10/ssl.py", line 1371, in do_handshake
-70.87     self._sslobj.do_handshake()
-70.87 ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1007)
+8.490   Certificate verification failed: The certificate is NOT trusted. The certificate issuer is unknown.  Could not handshake: Error in the certificate verification. [IP: 138.201.152.105 443]
+9.173 Get:12 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+10.31 Get:13 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+10.88 Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [5430 kB]
+11.27 Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1575 kB]
+12.48 Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [75.9 kB]
+12.48 Get:17 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3569 kB]
+12.74 Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [35.2 kB]
+12.82 Get:19 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.2 kB]
+13.12 Fetched 40.9 MB in 13s (3211 kB/s)
+13.12 Reading package lists...
+16.98 W: Failed to fetch http://archive.mariadb.org/mariadb-10.6.23/repo/ubuntu/dists/jammy/InRelease  Certificate verification failed: The certificate is NOT trusted. The certificate issuer is unknown.  Could not handshake: Error in the certificate verification. [IP: 138.201.152.105 443]
+16.98 W: Some index files failed to download. They have been ignored, or old ones used instead.
+17.18 Reading package lists...
+21.29 Building dependency tree...
+21.72 Reading state information...
+21.83 Some packages could not be installed. This may mean that you have
+21.83 requested an impossible situation or if you are using the unstable
+21.83 distribution that some required packages have not yet been created
+21.83 or been moved out of Incoming.
+21.83 The following information may help to resolve the situation:
+21.83 
+21.83 The following packages have unmet dependencies:
+22.05  mariadb-plugin-rocksdb : Depends: mariadb-server-10.6 (= 1:10.6.22-0ubuntu0.22.04.1) but 1:10.6.23+maria~ubu2204 is to be installed
+22.05                           Recommends: python3-mysqldb but it is not going to be installed
+22.06 E: Unable to correct problems, you have held broken packages.
 ------
-Dockerfile:8
+Dockerfile:2
 --------------------
-   7 |     RUN apt-get update && apt-get upgrade -y
-   8 | >>> RUN apt-get install -y software-properties-common tzdata && \
-   9 | >>>     echo | add-apt-repository ppa:ondrej/php && \
-  10 | >>>     echo | add-apt-repository ppa:ondrej/nginx && \
-  11 | >>>     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
-  12 | >>>     echo $TZ > /etc/timezone
-  13 |     
+   1 |     FROM mariadb:10.6
+   2 | >>> RUN apt-get update && apt-get -y install mariadb-plugin-rocksdb && rm -rf /var/cache/apt/lists/*
 --------------------
-target admin: failed to solve: process "/bin/sh -c apt-get install -y software-properties-common tzdata &&     echo | add-apt-repository ppa:ondrej/php &&     echo | add-apt-repository ppa:ondrej/nginx &&     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &&     echo $TZ > /etc/timezone" did not complete successfully: exit code: 1
-euctech@MCHID727H7NQ core-uk % 
+target mysql: failed to solve: process "/bin/sh -c apt-get update && apt-get -y install mariadb-plugin-rocksdb && rm -rf /var/cache/apt/lists/*" did not complete successfully: exit code: 100
+euctech@MCHID727H7NQ core-uk % docker compose up 
