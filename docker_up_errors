@@ -1,0 +1,62 @@
+0.28 Running hooks in /etc/ca-certificates/update.d...
+70.28 done.
+70.28 Processing triggers for dbus (1.12.20-2ubuntu4.1) ...
+70.86 Traceback (most recent call last):
+70.86   File "/usr/bin/add-apt-repository", line 364, in <module>
+70.86     sys.exit(0 if addaptrepo.main() else 1)
+70.86   File "/usr/bin/add-apt-repository", line 347, in main
+70.87     shortcut = handler(source, **shortcut_params)
+70.87   File "/usr/lib/python3/dist-packages/softwareproperties/shortcuts.py", line 40, in shortcut_handler
+70.87     return handler(shortcut, **kwargs)
+70.87   File "/usr/lib/python3/dist-packages/softwareproperties/ppa.py", line 82, in __init__
+70.87     if self.lpppa.publish_debug_symbols:
+70.87   File "/usr/lib/python3/dist-packages/softwareproperties/ppa.py", line 120, in lpppa
+70.87     self._lpppa = self.lpteam.getPPAByName(name=self.ppaname)
+70.87   File "/usr/lib/python3/dist-packages/softwareproperties/ppa.py", line 107, in lpteam
+70.87     self._lpteam = self.lp.people(self.teamname)
+70.87   File "/usr/lib/python3/dist-packages/softwareproperties/ppa.py", line 98, in lp
+70.87     self._lp = login_func("%s.%s" % (self.__module__, self.__class__.__name__),
+70.87   File "/usr/lib/python3/dist-packages/launchpadlib/launchpad.py", line 494, in login_anonymously
+70.87     return cls(
+70.87   File "/usr/lib/python3/dist-packages/launchpadlib/launchpad.py", line 230, in __init__
+70.87     super(Launchpad, self).__init__(
+70.87   File "/usr/lib/python3/dist-packages/lazr/restfulclient/resource.py", line 472, in __init__
+70.87     self._wadl = self._browser.get_wadl_application(self._root_uri)
+70.87   File "/usr/lib/python3/dist-packages/lazr/restfulclient/_browser.py", line 447, in get_wadl_application
+70.87     response, content = self._request(url, media_type=wadl_type)
+70.87   File "/usr/lib/python3/dist-packages/lazr/restfulclient/_browser.py", line 389, in _request
+70.87     response, content = self._request_and_retry(
+70.87   File "/usr/lib/python3/dist-packages/lazr/restfulclient/_browser.py", line 359, in _request_and_retry
+70.87     response, content = self._connection.request(
+70.87   File "/usr/lib/python3/dist-packages/httplib2/__init__.py", line 1725, in request
+70.87     (response, content) = self._request(
+70.87   File "/usr/lib/python3/dist-packages/launchpadlib/launchpad.py", line 144, in _request
+70.87     response, content = super(LaunchpadOAuthAwareHttp, self)._request(
+70.87   File "/usr/lib/python3/dist-packages/lazr/restfulclient/_browser.py", line 184, in _request
+70.87     return super(RestfulHttp, self)._request(
+70.87   File "/usr/lib/python3/dist-packages/httplib2/__init__.py", line 1441, in _request
+70.87     (response, content) = self._conn_request(conn, request_uri, method, body, headers)
+70.87   File "/usr/lib/python3/dist-packages/httplib2/__init__.py", line 1363, in _conn_request
+70.87     conn.connect()
+70.87   File "/usr/lib/python3/dist-packages/httplib2/__init__.py", line 1155, in connect
+70.87     self.sock = self._context.wrap_socket(sock, server_hostname=self.host)
+70.87   File "/usr/lib/python3.10/ssl.py", line 513, in wrap_socket
+70.87     return self.sslsocket_class._create(
+70.87   File "/usr/lib/python3.10/ssl.py", line 1100, in _create
+70.87     self.do_handshake()
+70.87   File "/usr/lib/python3.10/ssl.py", line 1371, in do_handshake
+70.87     self._sslobj.do_handshake()
+70.87 ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1007)
+------
+Dockerfile:8
+--------------------
+   7 |     RUN apt-get update && apt-get upgrade -y
+   8 | >>> RUN apt-get install -y software-properties-common tzdata && \
+   9 | >>>     echo | add-apt-repository ppa:ondrej/php && \
+  10 | >>>     echo | add-apt-repository ppa:ondrej/nginx && \
+  11 | >>>     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
+  12 | >>>     echo $TZ > /etc/timezone
+  13 |     
+--------------------
+target admin: failed to solve: process "/bin/sh -c apt-get install -y software-properties-common tzdata &&     echo | add-apt-repository ppa:ondrej/php &&     echo | add-apt-repository ppa:ondrej/nginx &&     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &&     echo $TZ > /etc/timezone" did not complete successfully: exit code: 1
+euctech@MCHID727H7NQ core-uk % 
