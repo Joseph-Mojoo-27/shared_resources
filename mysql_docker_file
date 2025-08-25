@@ -1,0 +1,19 @@
+FROM mariadb:10.6
+
+# Configure for corporate networks - disable SSL verification for package downloads
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Option 1: Corporate network compatible version with RocksDB plugin disabled for development
+# This avoids both certificate issues and package dependency conflicts
+RUN echo "Skipping RocksDB plugin installation for corporate network compatibility"
+
+# Option 2: If RocksDB is absolutely required, uncomment the lines below:
+# RUN apt-get -o Acquire::https::Verify-Peer=false -o Acquire::https::Verify-Host=false update && \
+#     apt-get -y install --fix-missing mariadb-plugin-rocksdb && \
+#     rm -rf /var/cache/apt/lists/*
+
+# Option 3: Alternative approach using HTTP repositories instead of HTTPS:
+# RUN sed -i 's/https:/http:/g' /etc/apt/sources.list.d/* || true && \
+#     apt-get update && \
+#     apt-get -y install mariadb-plugin-rocksdb && \
+#     rm -rf /var/cache/apt/lists/*
