@@ -8,49 +8,40 @@ RUN export DOCKER_DEFAULT_PLATFORM=linux/amd64
 ENV TZ=UTC
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Corporate network compatibility - disable SSL verification
-RUN apt-get -o Acquire::https::Verify-Peer=false -o Acquire::https::Verify-Host=false update && \
-    apt-get -o Acquire::https::Verify-Peer=false -o Acquire::https::Verify-Host=false upgrade -y
-
-RUN apt-get -o Acquire::https::Verify-Peer=false -o Acquire::https::Verify-Host=false install -y software-properties-common tzdata && \
-    echo | add-apt-repository ppa:ondrej/php && \
-    echo | add-apt-repository ppa:ondrej/nginx && \
+# Corporate network compatibility - skip PPA repositories and use Ubuntu defaults
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y software-properties-common tzdata && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone
 
-RUN apt-get -o Acquire::https::Verify-Peer=false -o Acquire::https::Verify-Host=false purge apache2 -y
-RUN apt-get -o Acquire::https::Verify-Peer=false -o Acquire::https::Verify-Host=false install -y \
+# Use Ubuntu default PHP 8.1 instead of PPA PHP 8.3 (corporate network compatible)
+RUN apt-get update
+
+RUN apt-get purge apache2 -y
+RUN apt-get install -y \
     mariadb-client \
     supervisor \
     nginx \
-    php8.3 \
-    php8.3-fpm \
-    php8.3-dev \
-    php8.3-tokenizer \
-    php8.3-curl \
-    php8.3-gd \
-    php8.3-fileinfo \
-    php8.3-xml \
-    php8.3-phar \
-    php8.3-dom \
-    php8.3-common \
-    php8.3-mysql \
-    php8.3-exif \
-    php8.3-zip \
-    php8.3-intl \
-    php8.3-iconv \
-    php8.3-bcmath \
-    php8.3-mbstring \
-    php8.3-pdo \
-    php8.3-pdo \
-    php8.3-soap \
-    php8.3-redis \
-    php8.3-gearman
+    php8.1 \
+    php8.1-fpm \
+    php8.1-dev \
+    php8.1-curl \
+    php8.1-gd \
+    php8.1-xml \
+    php8.1-dom \
+    php8.1-common \
+    php8.1-mysql \
+    php8.1-zip \
+    php8.1-intl \
+    php8.1-bcmath \
+    php8.1-mbstring \
+    php8.1-soap \
+    php8.1-redis
 
 COPY ./config/supervisord.conf /etc/supervisor/conf.d/web.conf
 COPY ./config/enabled.conf /etc/nginx/sites-enabled/default
 COPY ./config/enabled.conf /etc/nginx/sites-available/default
-COPY ./config/www.conf /etc/php/8.3/fpm/php-fpm.conf
+COPY ./config/www.conf /etc/php/8.1/fpm/php-fpm.conf
 
 COPY .env /var/www/.env
 COPY ./src /var/www/public
