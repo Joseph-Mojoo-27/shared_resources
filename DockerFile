@@ -3,6 +3,10 @@ FROM ubuntu:22.04
 LABEL Maintainer="Gee-Him Siu <gsiu@monevo.com"
 LABEL Description="PHP-FPM & Nginx built into ubuntu"
 
+RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates
+
+
+
 RUN export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 ENV TZ=UTC
