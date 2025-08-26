@@ -9,17 +9,18 @@ LABEL Description="PHP-FPM & Nginx built into ubuntu"
 
 RUN export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
-ENV TZ=UTC
-ENV DEBIAN_FRONTEND=noninteractive
+# Set timezone first
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y software-properties-common tzdata ca-certificates && \
-    apt-get install -y python3-launchpadlib && \
-    echo | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 add-apt-repository --yes ppa:ondrej/php && \
-    echo | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 add-apt-repository --yes ppa:ondrej/nginx && \
-    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
-    echo $TZ > /etc/timezone
+# Install from default Ubuntu repos (might be older versions)
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y nginx php-fpm php-cli php-mysql && \
+    apt-get clean
 
+# Or use official images instead
+# FROM php:8.2-fpm
+# Then install nginx separately
 # Use Ubuntu default PHP 8.1 instead of PPA PHP 8.3 (corporate network compatible)
 RUN apt-get update
 
