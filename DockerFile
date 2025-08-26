@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 LABEL Maintainer="Gee-Him Siu <gsiu@monevo.com"
 LABEL Description="PHP-FPM & Nginx built into ubuntu"
 
-RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates
+
 
 
 
@@ -12,9 +12,12 @@ RUN export DOCKER_DEFAULT_PLATFORM=linux/amd64
 ENV TZ=UTC
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Corporate network compatibility - skip PPA repositories and use Ubuntu defaults
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y software-properties-common tzdata && \
+RUN apt-get install -y software-properties-common tzdata ca-certificates curl gnupg && \
+    curl -fsSL https://packages.sury.org/php/apt.gpg | gpg --dearmor -o /usr/share/keyrings/php-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/php-keyring.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list && \
+    curl -fsSL https://packages.sury.org/nginx/apt.gpg | gpg --dearmor -o /usr/share/keyrings/nginx-keyring.gpg && \
+    echo "deb [signed-by=/usr/share/keyrings/nginx-keyring.gpg] https://packages.sury.org/nginx/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/nginx.list && \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone
 
