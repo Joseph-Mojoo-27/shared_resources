@@ -1,0 +1,7 @@
+FROM mariadb:10.6
+
+# Install ca-certificates to ensure SSL verification works, then install mariadb-plugin-rocksdb
+RUN apt-get update && \
+    apt-get install -y ca-certificates && \
+    apt-get install -y mariadb-plugin-rocksdb && \
+    rm -rf /var/lib/apt/lists/*
