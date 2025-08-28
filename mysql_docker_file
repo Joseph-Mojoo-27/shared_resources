@@ -1,7 +1,11 @@
 FROM mariadb:10.6
 
-# Install ca-certificates and mariadb-plugin-rocksdb, bypassing SSL verification
-RUN apt-get update -o Acquire::https::Verify-Peer=false && \
-    apt-get install -y ca-certificates && \
+# Install prerequisites and configure MariaDB repository
+RUN apt-get update && \
+    apt-get install -y software-properties-common ca-certificates wget && \
+    wget https://mariadb.org/mariadb_release_signing_key.asc && \
+    apt-key add mariadb_release_signing_key.asc && \
+    add-apt-repository 'deb [arch=amd64] https://mirrors.mariadb.org/repo/10.6/ubuntu jammy main' && \
+    apt-get update && \
     apt-get install -y mariadb-plugin-rocksdb && \
     rm -rf /var/lib/apt/lists/*
