@@ -1,0 +1,49 @@
+[mysql 2/2] RUN apt-get update && apt-get -y install mariadb-plugin-rocksdb && rm -rf /var/cache/apt/lists/*:
+1.193 Ign:1 https://archive.mariadb.org/mariadb-10.6.23/repo/ubuntu jammy InRelease
+1.723 Get:2 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+2.251 Ign:1 https://archive.mariadb.org/mariadb-10.6.23/repo/ubuntu jammy InRelease
+2.316 Get:3 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+2.690 Get:4 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+3.063 Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+3.536 Get:6 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3295 kB]
+3.739 Get:7 http://archive.ubuntu.com/ubuntu jammy/multiverse amd64 Packages [266 kB]
+4.157 Get:8 http://security.ubuntu.com/ubuntu jammy-security/multiverse amd64 Packages [48.5 kB]
+4.321 Ign:1 https://archive.mariadb.org/mariadb-10.6.23/repo/ubuntu jammy InRelease
+4.376 Get:9 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1272 kB]
+4.999 Get:10 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [5332 kB]
+8.363 Get:11 http://archive.ubuntu.com/ubuntu jammy/universe amd64 Packages [17.5 MB]
+8.394 Err:1 https://archive.mariadb.org/mariadb-10.6.23/repo/ubuntu jammy InRelease
+8.394   Certificate verification failed: The certificate is NOT trusted. The certificate issuer is unknown.  Could not handshake: Error in the certificate verification. [IP: 138.201.152.105 443]
+12.68 Get:12 http://archive.ubuntu.com/ubuntu jammy/restricted amd64 Packages [164 kB]
+12.70 Get:13 http://archive.ubuntu.com/ubuntu jammy/main amd64 Packages [1792 kB]
+13.33 Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1576 kB]
+14.05 Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3608 kB]
+15.29 Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [75.9 kB]
+16.53 Get:17 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [5526 kB]
+17.31 Get:18 http://archive.ubuntu.com/ubuntu jammy-backports/universe amd64 Packages [35.2 kB]
+17.33 Get:19 http://archive.ubuntu.com/ubuntu jammy-backports/main amd64 Packages [83.2 kB]
+17.87 Fetched 41.2 MB in 18s (2346 kB/s)
+17.87 Reading package lists...
+22.23 W: Failed to fetch http://archive.mariadb.org/mariadb-10.6.23/repo/ubuntu/dists/jammy/InRelease  Certificate verification failed: The certificate is NOT trusted. The certificate issuer is unknown.  Could not handshake: Error in the certificate verification. [IP: 138.201.152.105 443]
+22.23 W: Some index files failed to download. They have been ignored, or old ones used instead.
+22.43 Reading package lists...
+26.36 Building dependency tree...
+26.79 Reading state information...
+26.90 Some packages could not be installed. This may mean that you have
+26.90 requested an impossible situation or if you are using the unstable
+26.90 distribution that some required packages have not yet been created
+26.90 or been moved out of Incoming.
+26.90 The following information may help to resolve the situation:
+26.90 
+26.90 The following packages have unmet dependencies:
+27.09  mariadb-plugin-rocksdb : Depends: mariadb-server-10.6 (= 1:10.6.22-0ubuntu0.22.04.1) but 1:10.6.23+maria~ubu2204 is to be installed
+27.09                           Recommends: python3-mysqldb but it is not going to be installed
+27.09 E: Unable to correct problems, you have held broken packages.
+------
+Dockerfile:2
+--------------------
+   1 |     FROM mariadb:10.6
+   2 | >>> RUN apt-get update && apt-get -y install mariadb-plugin-rocksdb && rm -rf /var/cache/apt/lists/*
+--------------------
+target mysql: failed to solve: process "/bin/sh -c apt-get update && apt-get -y install mariadb-plugin-rocksdb && rm -rf /var/cache/apt/lists/*" did not complete successfully: exit code: 100
+euctech@MCHID727H7NQ core-us % 
